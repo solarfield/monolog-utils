@@ -1,0 +1,13 @@
+{
+	"name": "solarfield/monolog-utils",
+
+	"autoload": {
+		"psr-4": {
+			"Solarfield\\Monolog\\": "src/Solarfield/Monolog"
+		}
+	},
+
+	"require": {
+		"solarfield/ok-kit-php": "^0.0"
+	}
+}
