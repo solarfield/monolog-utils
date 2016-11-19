@@ -1,5 +1,6 @@
 <?php
 namespace Solarfield\Monolog;
+use Throwable;
 
 /**
  * Falls back to each successive inner handler, if the previous handler did not handle the record, if an exception was
@@ -23,7 +24,7 @@ class FallbackHandler extends \Monolog\Handler\GroupHandler {
 					break;
 				}
 			}
-			catch (\Exception $e) {
+			catch (Throwable $e) {
 				error_log($e);
 			}
 		}
@@ -44,7 +45,7 @@ class FallbackHandler extends \Monolog\Handler\GroupHandler {
 						$errorOccurred = true;
 					}
 				}
-				catch (\Exception $e) {
+				catch (Throwable $e) {
 					$errorOccurred = true;
 					error_log($e);
 				}
