@@ -11,11 +11,11 @@ class TextFormatter implements \Monolog\Formatter\FormatterInterface {
 		$formatted = "{$record['channel']}.{$record['level_name']} {$record['message']}";
 
 		if ($record['context']) {
-			$formatted .= "\n\n[context] " . MiscUtils::varInfo($record['context']);
+			$formatted .= "\n\n[context] " . var_export(MiscUtils::varData($record['context']), true);
 		}
 
 		if ($record['extra']) {
-			$formatted .= "\n\n[extra] " . MiscUtils::varInfo($record['extra']);
+			$formatted .= "\n\n[extra] " . var_export(MiscUtils::varData($record['extra']), true);
 		}
 
 		return $formatted . "\n";
