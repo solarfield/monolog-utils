@@ -40,7 +40,7 @@ class TextFormatter implements \Monolog\Formatter\FormatterInterface {
 			$formatted .= "\n\n[extra] " . var_export(MiscUtils::varData($record['extra']), true);
 		}
 
-		return $formatted . "\n";
+		return $formatted . "\n\n\n";
 	}
 
 	public function formatBatch(array $records) {
