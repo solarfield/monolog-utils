@@ -7,10 +7,32 @@ use Solarfield\Ok\MiscUtils;
  * Formats a human-readable dump of debug info.
  */
 class TextFormatter implements \Monolog\Formatter\FormatterInterface {
+	/**
+	 * Throwable objects stored at $record.context.exception, will be cast to string, and moved to
+	 * $record.context.exceptionAsString.
+	 * If $record.context.exceptionAsString matches $record.message, it will be excluded.
+	 * @param array $record
+	 * @return string
+	 */
 	public function format(array $record) {
 		$formatted = "{$record['channel']}.{$record['level_name']} {$record['message']}";
 
 		if ($record['context']) {
+			if (
+				is_array($record['context'])
+				&& array_key_exists('exception', $record['context'])
+				&& $record['context']['exception'] instanceof \Throwable
+			) {
+				$exception = $record['context']['exception'];
+				unset($record['context']['exception']);
+				
+				$exceptionAsString = (string)$exception;
+				
+				if ($record['message'] !== $exceptionAsString) {
+					$record['context']['exceptionAsString'] = $exceptionAsString;
+				}
+			}
+			
 			$formatted .= "\n\n[context] " . var_export(MiscUtils::varData($record['context']), true);
 		}
 
