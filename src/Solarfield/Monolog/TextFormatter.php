@@ -15,7 +15,10 @@ class TextFormatter implements \Monolog\Formatter\FormatterInterface {
 	 * @return string
 	 */
 	public function format(array $record) {
-		$formatted = "[" . date('Y-m-d H:i:s') . "] {$record['channel']}.{$record['level_name']} {$record['message']}";
+		$formatted =
+			"[" . date('Y-m-d H:i:s') . "] " .
+			"[{$record['channel']}].{$record['level_name']} " .
+			"{$record['message']}";
 
 		if ($record['context']) {
 			if (
